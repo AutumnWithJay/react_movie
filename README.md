@@ -13,8 +13,11 @@ Movie Discovery App to use React
 
 ### API Verbs
 
-- [ ] Now Playing (Movie)
-- [ ] Upcoming (Movie)
-- [ ] Top Rated (TV, Movie)
-- [ ] Popular (TV, Movie)
-- [ ] Airing Today (TV)
+- [x] Now Playing (Movie)
+- [x] Upcoming (Movie)
+- [x] Movie Detail (Movie)
+- [x] Popular (TV, Movie)
+- [x] Search (TV, Movie)
+- [x] Top Rated (TV)
+- [x] Airing Today (TV)
+- [x] TV Show Detail (TV)
