@@ -15,24 +15,49 @@ const HomePresenter = ({ nowPlaying, upComing, popular, error, loading }) =>
     <Loader />
   ) : (
     <Container>
+      {console.log(nowPlaying)}
       {nowPlaying && nowPlaying.length > 0 && (
         <Section title="현재상영중">
           {nowPlaying.map((movie) => (
-            <Poster />
+            <Poster
+              key={movie.id}
+              id={movie.id}
+              title={movie.original_title}
+              imgUrl={movie.poster_path}
+              rating={movie.vote_average}
+              year={movie.release_date && movie.release_date.substring(0, 4)}
+              isMovie={true}
+            />
           ))}
         </Section>
       )}
       {upComing && upComing.length > 0 && (
         <Section title="상영예정작">
           {upComing.map((movie) => (
-            <Poster />
+            <Poster
+              key={movie.id}
+              id={movie.id}
+              title={movie.original_title}
+              imgUrl={movie.poster_path}
+              rating={movie.vote_average}
+              year={movie.release_date && movie.release_date.substring(0, 4)}
+              isMovie={true}
+            />
           ))}
         </Section>
       )}
       {popular && popular.length > 0 && (
         <Section title="인기상영작">
           {popular.map((movie) => (
-            <Poster />
+            <Poster
+              key={movie.id}
+              id={movie.id}
+              title={movie.original_title}
+              imgUrl={movie.poster_path}
+              rating={movie.vote_average}
+              year={movie.release_date && movie.release_date.substring(0, 4)}
+              isMovie={true}
+            />
           ))}
         </Section>
       )}
