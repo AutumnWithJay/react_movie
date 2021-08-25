@@ -6,10 +6,10 @@ Movie Discovery App to use React
 
 ### Screens
 
-- [ ] Home
-- [ ] TV Shows
-- [ ] Search
-- [ ] Detail
+- [x] Home
+- [x] TV Shows
+- [x] Search
+- [x] Detail
 
 ### API Verbs
 
@@ -21,3 +21,10 @@ Movie Discovery App to use React
 - [x] Top Rated (TV)
 - [x] Airing Today (TV)
 - [x] TV Show Detail (TV)
+
+### Extra
+
+- [ ] Collections
+- [ ] IMDB Link
+- [ ] Tabs inside of Movie / Show Detail (YT Videos, Production Company & Countries)
+- [ ] On Tv Show Seasons

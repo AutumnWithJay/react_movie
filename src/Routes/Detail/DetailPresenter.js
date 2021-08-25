@@ -73,6 +73,10 @@ const ItemContainer = styled.div`
 
 const Item = styled.span``;
 
+const Icon = styled.img`
+  height: 10px;
+`;
+
 const Divider = styled.span`
   margin: 0 5px;
 `;
@@ -105,9 +109,7 @@ const DetailPresenter = ({ result, error, loading }) =>
   ) : (
     <Container>
       <Helmet>
-        <title>
-          {result.original_title ? result.original_title : result.original_name} | Movilix
-        </title>
+        <title>{result.title ? result.title : result.original_name} | Movilix</title>
       </Helmet>
       <Backdrop bgImg={`https://image.tmdb.org/t/p/original${result.backdrop_path}`} />
       <Content>
@@ -119,7 +121,7 @@ const DetailPresenter = ({ result, error, loading }) =>
           }
         />
         <Data>
-          <Title>{result.original_title ? result.original_title : result.original_name}</Title>
+          <Title>{result.title ? result.title : result.original_name}</Title>
           <ItemContainer>
             <Item>
               {result.release_date
@@ -134,6 +136,10 @@ const DetailPresenter = ({ result, error, loading }) =>
                 result.genres.map((genre, index) =>
                   index === result.genres.length - 1 ? genre.name : `${genre.name}/`,
                 )}
+            </Item>
+            <Divider>∙</Divider>
+            <Item>
+              <Icon src={'../../assets/imdb.png'} />
             </Item>
             <Overview>{result.overview}</Overview>
           </ItemContainer>
