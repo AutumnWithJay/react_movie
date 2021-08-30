@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Loader from 'Components/Loader';
 import { Helmet } from 'react-helmet';
 import Message from 'Components/Message';
+import imdbIcon from '../../assets/imdb.png';
+import Video from 'Components/Video';
+import Production from 'Components/Production';
+import Season from 'Components/Season';
 
 const Container = styled.div`
   height: calc(100% - 50px);
@@ -74,8 +78,12 @@ const ItemContainer = styled.div`
 const Item = styled.span``;
 
 const Icon = styled.img`
-  height: 10px;
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
 `;
+
+const Link = styled.a``;
 
 const Divider = styled.span`
   margin: 0 5px;
@@ -96,8 +104,49 @@ const Overview = styled.p`
   }
 `;
 
-const DetailPresenter = ({ result, error, loading }) =>
-  loading ? (
+const About = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  opacity: 0.8;
+
+  @media only screen and (min-width: 600px) {
+    width: 100%;
+  }
+
+  @media only screen and (min-width: 992px) {
+    width: 50%;
+  }
+`;
+
+const AboutTitle = styled.span`
+  font-size: 15px;
+  cursor: pointer;
+`;
+
+const AboutOverview = styled.div`
+  margin-top: 20px;
+  @media only screen and (min-width: 600px) {
+    width: 100%;
+  }
+
+  @media only screen and (min-width: 992px) {
+    width: 50%;
+  }
+`;
+
+const DetailPresenter = ({ result, error, loading, isTv }) => {
+  const [current, setCurrent] = useState('video');
+
+  const handleClick = (e) => {
+    const {
+      dataset: { value },
+    } = e.target;
+
+    setCurrent(value);
+  };
+
+  return loading ? (
     <>
       <Helmet>
         <title>로딩중.. | Movilix</title>
@@ -121,7 +170,7 @@ const DetailPresenter = ({ result, error, loading }) =>
           }
         />
         <Data>
-          <Title>{result.title ? result.title : result.original_name}</Title>
+          <Title>{result.title ? result.title : result.name}</Title>
           <ItemContainer>
             <Item>
               {result.release_date
@@ -138,15 +187,72 @@ const DetailPresenter = ({ result, error, loading }) =>
                 )}
             </Item>
             <Divider>∙</Divider>
-            <Item>
-              <Icon src={'../../assets/imdb.png'} />
-            </Item>
+            <Link href={`https://www.imdb.com/title/${result.imdb_id}`}>
+              <Icon alt="imdb icon" src={imdbIcon} />
+            </Link>
             <Overview>{result.overview}</Overview>
+            <About>
+              <AboutTitle
+                data-value="video"
+                onClick={(e) => handleClick(e)}
+                style={
+                  current === 'video'
+                    ? {
+                        borderBottom: '3px solid #d2082d',
+                        transition: 'border-bottom 0.5s ease-in-out',
+                      }
+                    : { borderBottom: 'transparent', transition: 'border-bottom 0.5s ease-in-out' }
+                }
+              >
+                관련영상
+              </AboutTitle>
+              <AboutTitle
+                data-value="production"
+                onClick={(e) => handleClick(e)}
+                style={
+                  current === 'production'
+                    ? {
+                        borderBottom: '3px solid #d2082d',
+                        transition: 'border-bottom 0.5s ease-in-out',
+                      }
+                    : { borderBottom: 'transparent', transition: 'border-bottom 0.5s ease-in-out' }
+                }
+              >
+                제작정보
+              </AboutTitle>
+              {isTv && (
+                <AboutTitle
+                  data-value="season"
+                  onClick={(e) => handleClick(e)}
+                  style={
+                    current === 'season'
+                      ? {
+                          borderBottom: '3px solid #d2082d',
+                          transition: 'border-bottom 0.5s ease-in-out',
+                        }
+                      : {
+                          borderBottom: 'transparent',
+                          transition: 'border-bottom 0.5s ease-in-out',
+                        }
+                  }
+                >
+                  시즌
+                </AboutTitle>
+              )}
+            </About>
+            <AboutOverview>
+              {current === 'video' && <Video info={result} />}
+              {current === 'production' && result.production_companies && (
+                <Production info={result} />
+              )}
+              {current === 'season' && result.seasons && <Season info={result.seasons} />}
+            </AboutOverview>
           </ItemContainer>
         </Data>
       </Content>
     </Container>
   );
+};
 
 DetailPresenter.propTypes = {
   result: PropTypes.object,

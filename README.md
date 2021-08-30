@@ -24,7 +24,7 @@ Movie Discovery App to use React
 
 ### Extra
 
-- [ ] Collections
-- [ ] IMDB Link
-- [ ] Tabs inside of Movie / Show Detail (YT Videos, Production Company & Countries)
-- [ ] On Tv Show Seasons
+- [x] Collections
+- [x] IMDB Link
+- [x] Tabs inside of Movie / Show Detail (YT Videos, Production Company & Countries)
+- [x] On Tv Show Seasons
